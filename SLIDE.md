@@ -189,3 +189,81 @@ bukan label Excel.
 3. Kalibrasi tingkat kepercayaan (95% default) sesuai toleransi bisnis.
 
 🎤 Reproduksi penuh: `python jsrs_rolling.py`, `jsrs_eval.py`, `jsrs_backtest.py`.
+
+---
+
+## 16 — Masalah Kecepatan: Verifikasi 2 Tingkat (5–10 Hari)
+
+Sekarang: data input → **verifikasi tingkat 1** → **verifikasi tingkat 2** →
+baru kembali ke admin. **Butuh 5–10 hari.**
+
+➡️ Kalau ada anomali, admin **baru tahu seminggu kemudian** — terlambat menyelidiki.
+
+**Dengan sistem baru:** vonis muncul **saat input**. Admin langsung investigasi.
+
+🎤 Ini manfaat yang paling terasa untuk operasional harian.
+
+---
+
+## 17 — Band Dipisah: Production vs Domestic
+
+Pada unit yang sama, pemakaian **Production bisa 7–94× lebih besar** dari Domestic.
+
+➡️ Satu band untuk keduanya → pasti salah vonis.
+
+**Aturan:** `Usage Type` jadi bagian kunci → dihitung sebagai **dua seri terpisah**,
+band masing-masing.
+
+🎤 Contoh: FeedMill Sragen — Production 912.956 vs Domestic 9.743 (94×).
+
+---
+
+## 18 — Energi Musiman / Event (Banyak Bulan Kosong)
+
+Sebagian unit hanya dipakai musiman/saat event → banyak bulan kosong
+(Non-Renewable: 48 musiman, 13 jarang).
+
+**Aturan:**
+- Bulan kosong **≠ anomali** (tidak dinilai, bukan dipaksa nol).
+- Band hanya dari bulan ber-nilai.
+- Minimum **≥3 bulan** sejarah; di bawah itu: "data historis belum cukup".
+
+🎤 Mencegah sistem "menyalakan alarm" hanya karena unit sedang tidak beroperasi.
+
+---
+
+## 19 — BONUS: Deteksi Typo Input Otomatis
+
+**274 kandidat typo** ditemukan di data nyata:
+- Kurang 1 nol (÷10): 176 · Kelebihan 1 nol (×10): 94 · Salah pemisah (×100): 4
+
+➡️ Contoh: **45.532** vs median unit **562** = **81×** → jelas typo.
+
+🎤 Sistem menangkap salah ketik SEBELUM masuk verifikasi 5–10 hari. "Wow moment".
+
+---
+
+## 20 — Manfaat untuk Siapa Saja
+
+- **Admin** — tahu anomali seketika, langsung investigasi.
+- **Verifikator** — fokus ke yang ditandai; beban 2 tingkat berkurang.
+- **Kualitas data** — typo tertangkap dini, laporan lebih bersih.
+- **Manajemen energi** — pemborosan/kebocoran cepat terlihat.
+- **Audit & keberlanjutan** — jejak anomali terdokumentasi.
+- **Perencanaan** — band stabil jadi acuan target.
+
+🎤 Satu perubahan rumus, manfaat lintas fungsi.
+
+---
+
+## 21 — Langkah Demo ke Stakeholder (ringkas)
+
+1. Mulai dari **masalah** (band goyah + tunggu 5–10 hari).
+2. Tunjukkan **bukti kestabilan** (210 → 0) & **akurasi** (74–82% vs 8–15%).
+3. Sentuh **teori** singkat (breakdown point 50%).
+4. Tunjukkan **typo** (45.532 vs 562) sebagai bonus.
+5. Tutup dengan **manfaat + rencana uji paralel 1–2 bulan**.
+
+Detail lengkap: **DEMO.md**. Demo live: `python jsrs_rolling.py`, `jsrs_insight.py`.
+
+🎤 PDF siap: **SLIDE_JSRS.pdf**. Dashboard: folder **figs/**.

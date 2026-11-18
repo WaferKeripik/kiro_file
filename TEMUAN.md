@@ -123,3 +123,61 @@ File: `jsrs_core.py` (band), `jsrs_loader.py` (baca CSV), `jsrs_rolling.py`,
 `jsrs_eval.py`, `jsrs_backtest.py`.
 
 *Sumber dirangkum ulang untuk mematuhi lisensi. Konten diparafrasekan.*
+
+---
+
+## 6. Temuan Tambahan (konteks produksi lanjutan)
+
+### 6.1 Deteksi typo input otomatis (kelebihan/kurang nol, salah pemisah)
+
+Dari data nyata ditemukan **274 kandidat typo**:
+
+| Pola | Jumlah | Contoh |
+|---|---|---|
+| Kurang 1 nol (÷10) | 176 | 500 ditulis 50 |
+| Kelebihan 1 nol (×10) | 94 | 2.000 ditulis 20.000 |
+| Salah pemisah ribuan (×100) | 4 | CS Cirebon Jan-2024 = **45.532** vs median **562** (81×) |
+
+Metode: rasio nilai terhadap **median robust** unit (median tahan outlier, tak terseret
+angka typo itu sendiri). **Manfaat:** menangkap salah ketik SEBELUM masuk verifikasi
+2-tingkat yang makan 5–10 hari.
+
+### 6.2 Band terpisah: Production vs Domestic
+
+Pada 277 unit Listrik yang punya kedua jenis pemakaian, median **Production 7–94× lebih besar**
+dari Domestic (median rasio 7,3×). **Menyatukan band = salah total.** Aturan: `Usage Type`
+menjadi bagian kunci unit → Production & Domestic dihitung sebagai **dua seri terpisah**.
+
+### 6.3 Energi musiman / event (banyak bulan kosong)
+
+| Dataset | Penuh | Musiman (3–9 bln) | Jarang (1–2) |
+|---|---|---|---|
+| Listrik 2025 | 621 | 7 | 0 |
+| Non-Renewable 2025 | 574 | 48 | 13 |
+
+Aturan: bulan **kosong ≠ anomali** (tidak dinilai, bukan dipaksa nol); band hanya dari
+bulan ber-nilai; minimum **≥3 bulan** sejarah, di bawah itu "data historis belum cukup".
+
+### 6.4 Manfaat informasi ini
+
+- **Admin:** tahu anomali **seketika saat input** — tak perlu tunggu balik 5–10 hari.
+- **Verifikator:** fokus hanya pada yang ditandai → beban 2-tingkat berkurang.
+- **Kualitas data:** typo tertangkap dini → laporan energi lebih bersih.
+- **Manajemen energi:** pemborosan/kebocoran cepat terlihat.
+- **Audit & keberlanjutan:** jejak anomali terdokumentasi.
+- **Perencanaan:** band stabil jadi acuan target konsumsi.
+
+### 6.5 Dampak terhadap proses verifikasi 2-tingkat (5–10 hari)
+
+Saat ini anomali baru ketahuan **setelah** data melewati 2 tingkat verifikasi (5–10 hari).
+Dengan band rolling, sistem memvonis **pada saat input** → admin bisa langsung menyelidiki,
+memangkas keterlambatan dari **5–10 hari menjadi instan**.
+
+---
+
+## 7. Artefak Presentasi
+
+- **SLIDE_JSRS.pdf** — 15 slide siap presentasi (grafik + temuan + langkah demo).
+- **figs/** — 7 grafik dashboard (PNG).
+- **DEMO.md** — langkah-langkah demo ke stakeholder.
+- **jsrs_insight.py** (typo/musiman/usage), **jsrs_dashboard.py** (grafik), **jsrs_make_pdf.py** (PDF).
