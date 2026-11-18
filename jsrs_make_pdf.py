@@ -257,6 +257,25 @@ def build():
         "Langkah aman: jalankan paralel 1-2 bulan (lama vs baru) sebelum switch penuh.",
     ], size=12, lh=9)
 
+    # 15b workload — struktural & risiko
+    image_slide(pdf, "Beban Submittor & Verificator (struktural)", "08_workload_struktural.png",
+                "Beban antar-divisi sudah timpang: Commercial Poultry ~18 entri/Submittor & ~66 entri/Verificator per bulan (data energi).",
+                "workload - apa adanya")
+    image_slide(pdf, "Risiko: Beban Bisa NAIK (jujur)", "09_workload_beforeafter.png",
+                "Rumus baru menandai ~8x lebih banyak anomali (2,1% -> 16,5%). Cek dokumen jadi wajib -> beban cek bisa bertambah (skenario, asumsi).",
+                "workload - risiko")
+    image_slide(pdf, "Titik Impas Beban", "10_breakeven.png",
+                "Submittor untung hanya bila a_baru < titik impas. Saat ini mayoritas di atasnya -> perlu cek dokumen efisien / kalibrasi ambang.",
+                "workload - syarat untung")
+    head(pdf, "Workload: Kesimpulan Jujur", "nilai bagi pemeriksa")
+    bullets(pdf, [
+        "Manfaat terbesar di ADMIN & CORPORATE (tahu anomali saat input, tak tunggu 5-10 hari).",
+        "*Bagi Submittor/Verificator: beban BISA NAIK (median +30-50 mnt/orang/bln di divisi padat).",
+        "Penyebab: anomali baru lebih sensitif + cek dokumen jadi kewajiban baru.",
+        "*Agar mereka ikut untung: cek dokumen ringkas/sampling, ATAU kalibrasi ambang, ATAU ukur a_baru operasional (biasanya turun setelah stabil).",
+        "Semua waktu di sini ASUMSI (rentang) - perlu data nyata dari divisi percontohan.",
+    ], size=11.5, lh=8.5)
+
     # 15 langkah demo
     head(pdf, "Langkah Demo ke Stakeholder", "panduan presentasi")
     bullets(pdf, [

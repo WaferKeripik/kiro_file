@@ -174,3 +174,66 @@ if __name__ == "__main__":
         fn(); print("  ok:", fn.__name__)
     print("Semua gambar di:", FIGS)
     print(os.listdir(FIGS))
+
+
+# --------------------------------------------------------------------------- #
+# Grafik WORKLOAD (Submittor / Verificator)
+# --------------------------------------------------------------------------- #
+def fig_workload_struktural():
+    from jsrs_workload import structural_table
+    df = structural_table()
+    d = df[df["ada_data_energi"]].sort_values("entri_per_S", ascending=True).tail(10)
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    y = np.arange(len(d))
+    ax.barh(y - 0.2, d["entri_per_S"], 0.4, label="entri / Submittor", color=C_OK)
+    ax.barh(y + 0.2, d["entri_per_V"], 0.4, label="entri / Verificator", color=C_NEW)
+    ax.set_yticks(y); ax.set_yticklabels(d["Division_akun"], fontsize=8)
+    ax.set_xlabel("entri energi per orang per bulan")
+    ax.set_title("Beban entri per pemeriksa (10 divisi tertinggi)\nangka akun, data energi - per bulan")
+    ax.legend(fontsize=9)
+    fig.tight_layout(); fig.savefig(f"{FIGS}/08_workload_struktural.png"); plt.close(fig)
+
+
+def fig_workload_beforeafter():
+    from jsrs_workload import structural_table, sensitivity
+    df = structural_table()
+    for role in ("S", "V"):
+        s = sensitivity(df, role)
+        df[f"before_{role}"] = s["before_med"]; df[f"after_{role}"] = s["after_med"]
+        df[f"delta_{role}"] = s["delta_med"]
+    d = df[df["ada_data_energi"]].sort_values("delta_S", ascending=False).head(10)
+    fig, ax = plt.subplots(figsize=(8.5, 4.5))
+    y = np.arange(len(d))
+    ax.barh(y - 0.2, d["before_S"], 0.4, label="SEBELUM", color="#9aa0a6")
+    ax.barh(y + 0.2, d["after_S"], 0.4, label="SESUDAH (skenario)", color=C_BAD)
+    ax.set_yticks(y); ax.set_yticklabels(d["Division_akun"], fontsize=8)
+    ax.set_xlabel("menit / Submittor / bulan  (parameter median - ASUMSI)")
+    ax.set_title("Beban waktu Submittor: SEBELUM vs SESUDAH\nperingatan: beban bisa NAIK karena anomali baru lebih sensitif")
+    ax.legend(fontsize=9)
+    fig.tight_layout(); fig.savefig(f"{FIGS}/09_workload_beforeafter.png"); plt.close(fig)
+
+
+def fig_breakeven():
+    from jsrs_workload import structural_table, breakeven_adoc, PARAM
+    df = structural_table()
+    p_mid = {k: np.mean(v) for k, v in PARAM.items()}
+    df["a_breakeven"] = breakeven_adoc(df, "S", p_mid)
+    d = df[df["ada_data_energi"]].sort_values("a_baru", ascending=True)
+    fig, ax = plt.subplots(figsize=(8.5, 5))
+    y = np.arange(len(d))
+    ax.plot(d["a_baru"]*100, y, "o", color=C_BAD, label="a_baru (rumus baru)")
+    ax.plot(d["a_breakeven"]*100, y, "s", color=C_NEW, label="titik impas a*")
+    ax.plot(d["a_lama"]*100, y, "x", color="#777", label="a_lama")
+    for i in range(len(d)):
+        ax.plot([d["a_breakeven"].iloc[i]*100, d["a_baru"].iloc[i]*100], [i, i],
+                color="#ccc", zorder=0)
+    ax.set_yticks(y); ax.set_yticklabels(d["Division_akun"], fontsize=8)
+    ax.set_xlabel("tingkat anomali (%)")
+    ax.set_title("Titik impas vs tingkat anomali baru\nbila a_baru (merah) di kanan titik impas (hijau) -> beban NAIK")
+    ax.legend(fontsize=9)
+    fig.tight_layout(); fig.savefig(f"{FIGS}/10_breakeven.png"); plt.close(fig)
+
+
+def build_workload_figs():
+    for fn in (fig_workload_struktural, fig_workload_beforeafter, fig_breakeven):
+        fn(); print("  ok:", fn.__name__)
