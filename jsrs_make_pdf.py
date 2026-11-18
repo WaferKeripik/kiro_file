@@ -257,6 +257,21 @@ def build():
         "Langkah aman: jalankan paralel 1-2 bulan (lama vs baru) sebelum switch penuh.",
     ], size=12, lh=9)
 
+    # 15a biaya tersembunyi: pertanyaan berulang
+    image_slide(pdf, "Biaya Tersembunyi Alur Lama: Pertanyaan Berulang", "11_tanya_berulang.png",
+                "Band bergerak tiap bulan -> data sama ditanya ulang (rata-rata 4,3x). Alasan disimpan di notepad pribadi, jadi hilang & ditanya lagi.",
+                "workload - temuan kunci")
+    head(pdf, "Kenapa Alur Baru Memangkas Beban Lintas-Bulan", "temuan kunci")
+    bullets(pdf, [
+        "Alur LAMA: band LCL/UCL dihitung ulang tiap bulan -> status anomali bulan lama BERGERAK.",
+        "  -> data yang sama ditanyakan berulang (rata-rata 4,3x; ~1.400 tanya ulang/tahun).",
+        "  -> tiap siklus tanya-jawab 5-10 hari, berjenjang Corporate -> Verificator -> Submittor -> Admin.",
+        "  -> alasan disimpan di notepad pribadi Corporate (tercecer, ditanya lagi sampai akhir tahun).",
+        "*Alur BARU: SR Admin isi alasan saat input -> melekat pada data, terlihat semua pihak.",
+        "*Karena band rolling TIDAK menggeser vonis bulan lama, satu alasan berlaku PERMANEN -> tak ditanya ulang.",
+        "Inilah penghematan terbesar bagi Submittor & Verificator (tak tertangkap di model satu-bulan).",
+    ], size=11, lh=8)
+
     # 15b workload — struktural & risiko
     image_slide(pdf, "Beban Submittor & Verificator (struktural)", "08_workload_struktural.png",
                 "Beban antar-divisi sudah timpang: Commercial Poultry ~18 entri/Submittor & ~66 entri/Verificator per bulan (data energi).",
@@ -269,12 +284,13 @@ def build():
                 "workload - syarat untung")
     head(pdf, "Workload: Kesimpulan Jujur", "nilai bagi pemeriksa")
     bullets(pdf, [
-        "Manfaat terbesar di ADMIN & CORPORATE (tahu anomali saat input, tak tunggu 5-10 hari).",
-        "*Bagi Submittor/Verificator: beban BISA NAIK (median +30-50 mnt/orang/bln di divisi padat).",
-        "Penyebab: anomali baru lebih sensitif + cek dokumen jadi kewajiban baru.",
-        "*Agar mereka ikut untung: cek dokumen ringkas/sampling, ATAU kalibrasi ambang, ATAU ukur a_baru operasional (biasanya turun setelah stabil).",
-        "Semua waktu di sini ASUMSI (rentang) - perlu data nyata dari divisi percontohan.",
-    ], size=11.5, lh=8.5)
+        "Per-bulan: cek dokumen bisa NAIK (median +30-50 mnt/orang/bln di divisi padat) karena anomali baru lebih sensitif.",
+        "*Lintas-bulan: beban TURUN karena pertanyaan berulang hilang (alur lama: 1 anomali ditanya 4,3x).",
+        "*Bersih: penghematan dari hilangnya tanya ulang lintas-bulan menutup kenaikan cek dokumen per-bulan.",
+        "Manfaat jelas juga di ADMIN & CORPORATE (tahu saat input, alasan melekat permanen).",
+        "Syarat optimal: cek dokumen ringkas/sampling + sediakan FIELD ALASAN di sistem (ganti notepad).",
+        "Catatan: waktu per-entri ASUMSI; pertanyaan berulang 4,3x DIHITUNG dari data.",
+    ], size=11, lh=8)
 
     # 15 langkah demo
     head(pdf, "Langkah Demo ke Stakeholder", "panduan presentasi")

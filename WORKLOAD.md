@@ -110,6 +110,43 @@ Ubah asumsi di `PARAM` (atas file `jsrs_workload.py`). Grafik: `figs/08–10`.
    tetapi penghematan ini belum cukup menutup biaya cek dokumen pada tingkat `a_baru` saat ini.
 5. **Titik impas jelas:** jika tingkat anomali operasional bisa ditekan ke <~10% dan cek dokumen
    dibuat efisien, mayoritas divisi menjadi netral–untung.
+6. **Biaya tersembunyi alur lama = pertanyaan berulang.** Karena band bergerak tiap bulan dan alasan
+   disimpan di notepad pribadi, satu anomali ditanyakan rata-rata **4,3×** (≈1.400 pertanyaan berulang/tahun,
+   masing-masing bersiklus 5–10 hari). Alur baru menghapus ini: alasan melekat & berlaku permanen karena
+   vonis bulan lama tidak bergeser. **Inilah penghematan terbesar bagi Submittor & Verificator** — dan tidak
+   tertangkap di model satu-bulan Bagian 3.
+
+---
+
+## 6b. Biaya Tersembunyi Alur Lama: Pertanyaan Berulang `(a)`
+
+Karena band LCL/UCL **dihitung ulang tiap bulan**, status anomali sebuah bulan **bergerak** — bulan
+yang sama bisa kembali tampak anomali di bulan-bulan berikutnya. Akibatnya **data yang sama ditanyakan
+berulang**, walau sudah dijelaskan bulan sebelumnya. Diperparah karena **tidak ada tempat menyimpan
+alasan**: Corporate mencatat di notepad pribadi, sehingga penjelasan tercecer dan ditanyakan lagi —
+bahkan sampai akhir tahun.
+
+Dihitung dari data nyata (band lama, FY2025 dengan sejarah 2024):
+
+| Metrik | Nilai |
+|---|--:|
+| Bulan-unit berstatus anomali (dilihat akhir tahun) | **431** |
+| Akumulasi kemunculan anomali sepanjang tahun | **1.833** |
+| Rata-rata sebuah anomali "muncul lagi" | **4,3×** |
+| Unit yang terkena anomali berulang | **536** |
+
+➡️ Perkiraan **~1.400 pertanyaan berulang** untuk data yang **tidak berubah**. Setiap siklus tanya-jawab
+memakan **5–10 hari** dan terjadi **per bulan**.
+
+**Alur baru membalik ini:**
+- SR Admin mengisi alasan **saat input** → Submittor/Verificator/Corporate langsung melihatnya.
+- Alasan **melekat pada data** (ada tempat penyimpanannya), bukan di notepad pribadi.
+- Karena band rolling **tidak menggeser** vonis bulan lama, satu alasan **berlaku permanen** —
+  data yang sama **tidak ditanyakan ulang** bulan berikutnya.
+
+> Ini keuntungan yang **tidak tertangkap** di model menit/bulan Bagian 3 (yang hanya menghitung satu
+> bulan). Bila dihitung lintas-tahun, penghematan dari hilangnya pertanyaan berulang **besar** dan
+> langsung mengurangi beban berjenjang Submittor → Verificator → Corporate.
 
 ---
 
@@ -117,10 +154,10 @@ Ubah asumsi di `PARAM` (atas file `jsrs_workload.py`). Grafik: `figs/08–10`.
 
 **Judul:** Dampak Fitur Anomali Baru ke Beban Submittor & Verificator
 
-- Beban antar-divisi **sudah timpang** (Commercial Poultry: 1 Verificator ≈ 66 entri/bulan).
-- Rumus baru lebih sensitif (**2,1% → 16,5%**) → tanpa penyesuaian, beban cek **naik**.
-- Manfaat terbesar di **Admin & Corporate**; Submittor/Verificator untung **hanya jika** cek dokumen efisien / ambang dikalibrasi.
-- **Rekomendasi:** uji paralel + tetapkan SOP cek dokumen ringkas sebelum rollout.
+- Alur lama: 1 anomali ditanya **4,3× berulang** (band bergerak + alasan di notepad) → ~1.400 tanya ulang/tahun.
+- Alur baru: alasan **melekat & permanen** (vonis tak bergerak) → pertanyaan berulang hilang.
+- Rumus baru lebih sensitif (**2,1% → 16,5%**) → cek dokumen per-bulan bisa naik, tapi tertutup oleh hilangnya tanya ulang lintas-bulan.
+- **Rekomendasi:** uji paralel + SOP cek dokumen ringkas + sediakan field alasan di sistem.
 
 (Grafik utama: `figs/09_workload_beforeafter.png` atau `figs/10_breakeven.png`.)
 

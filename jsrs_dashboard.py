@@ -237,3 +237,19 @@ def fig_breakeven():
 def build_workload_figs():
     for fn in (fig_workload_struktural, fig_workload_beforeafter, fig_breakeven):
         fn(); print("  ok:", fn.__name__)
+
+
+def fig_tanya_berulang():
+    """Alur lama: 1 anomali ditanya berulang (band bergerak). Alur baru: sekali, permanen."""
+    fig, ax = plt.subplots(figsize=(8, 4.3))
+    kat = ["Anomali unik\n(akhir tahun)", "Kemunculan sepanjang\ntahun (alur LAMA)", "Pertanyaan\n(alur BARU)"]
+    val = [431, 1833, 431]
+    cols = ["#9aa0a6", C_OLD, C_NEW]
+    bars = ax.bar(kat, val, color=cols)
+    ax.bar_label(bars, fmt="%d", padding=4, fontsize=12, fontweight="bold")
+    ax.set_ylabel("jumlah bulan-unit")
+    ax.set_title("Data yang sama ditanya berulang (rata-rata 4,3x) karena band bergerak\n"
+                 "alur baru: alasan melekat & permanen -> ditanya sekali")
+    ax.set_ylim(0, 2100)
+    fig.tight_layout(); fig.savefig(f"{FIGS}/11_tanya_berulang.png"); plt.close(fig)
+    print("  ok: fig_tanya_berulang")
