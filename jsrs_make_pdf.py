@@ -272,6 +272,19 @@ def build():
         "Inilah penghematan terbesar bagi Submittor & Verificator (tak tertangkap di model satu-bulan).",
     ], size=11, lh=8)
 
+    # 15a2 timeline siklus anomali
+    image_slide(pdf, "Timeline Siklus Anomali: Deteksi -> 'OK with Notes'", "12_timeline.png",
+                "Alur lama 2 tahap (10-20 hari/putaran) x pengulangan 4,3x = 43-86 hari/anomali. Alur baru: 1-3 hari (akurat) atau ~0 (typo, perbaiki di JSRS).",
+                "workload - kecepatan proses")
+    head(pdf, "Dua Tahap Proses Saat Ini (di luar sistem)", "rincian alur")
+    bullets(pdf, [
+        "Tahap 1 (deteksi -> unit dapat notif): HO QlikSense -> Division PIC cek BI -> email Corporate -> diskusi. ~5-10 hari.",
+        "  Jika datanya SALAH (typo): Division PIC cukup perbaiki di JSRS, tanpa ke Corporate.",
+        "Tahap 2 (investigasi -> corrective -> 'OK with Notes'): di luar sistem, Division PIC <-> Corporate. ~5-10 hari.",
+        "*Alur baru: Tahap 1 ~ 0 (admin tahu saat input); typo terpotong; Tahap 2 menyusut (alasan terlampir); tanpa pengulangan.",
+        "Catatan: durasi hari = ASUMSI dari narasi proses; jumlah anomali & pengganda 4,3x = DIHITUNG dari data.",
+    ], size=11, lh=8)
+
     # 15b workload — struktural & risiko
     image_slide(pdf, "Beban Submittor & Verificator (struktural)", "08_workload_struktural.png",
                 "Beban antar-divisi sudah timpang: Commercial Poultry ~18 entri/Submittor & ~66 entri/Verificator per bulan (data energi).",

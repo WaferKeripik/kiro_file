@@ -150,6 +150,40 @@ memakan **5–10 hari** dan terjadi **per bulan**.
 
 ---
 
+## 6c. Timeline Siklus Anomali: Deteksi → "OK with Notes"
+
+Proses lengkap berjalan **dua tahap berurutan**, masing-masing di luar sistem dan bergantung
+diskusi antar-PIC:
+
+**Tahap 1 — deteksi sampai unit dapat notifikasi** `(ASUMSI 5–10 hari kerja)`
+HO deteksi anomali di QlikSense → Division PIC cek di BI Sustainalytics → kirim form
+konfirmasi/email ke Corporate → diskusi. Jika ternyata **datanya salah (typo)**, Division PIC
+**tidak perlu ke Corporate** — cukup perbaiki di JSRS.
+
+**Tahap 2 — investigasi sampai status "OK with Notes"** `(ASUMSI 5–10 hari kerja)`
+Unit investigasi di luar sistem (email/chat/call). Jika data akurat, Division PIC email Corporate
+PIC → diskusi → Corporate proses → status menjadi "OK with Notes".
+
+| Alur | Per putaran | Dengan band bergerak (×4,3) `(data)` |
+|---|--:|--:|
+| **LAMA** (Tahap 1 + Tahap 2) | **10–20 hari** | **43–86 hari** per anomali |
+| **BARU** (akurat, alasan terlampir) | **1–3 hari** | tanpa pengulangan |
+| **BARU** (typo) | **~0 hari** (perbaiki di JSRS) | — |
+
+**Kenapa alur baru jauh lebih cepat:**
+- **Tahap 1 ≈ 0:** SR Admin tahu vonis **saat input** dan langsung mengisi alasan.
+- **Typo terpotong total:** kesalahan input ketahuan dini (274 kandidat), diperbaiki di JSRS
+  tanpa menyentuh dua tahap di atas.
+- **Tahap 2 menyusut:** alasan sudah terlampir → diskusi minimal.
+- **Tanpa pengulangan:** vonis bulan lama tidak bergeser → tidak ditanya ulang bulan berikutnya.
+
+> Ilustrasi agregat (energi FY2025): 431 anomali unik × (10–20 hari) × 4,3 ≈ **puluhan ribu
+> hari-siklus** pada alur lama. Alur baru memangkasnya drastis. Angka ini **ilustrasi**: durasi
+> adalah ASUMSI, sedangkan jumlah anomali (431) dan pengganda (4,3×) DIHITUNG dari data.
+> Jalankan `python jsrs_timeline.py` untuk memperbarui dengan durasi nyata Anda.
+
+---
+
 ## 7. Ringkasan 1 Slide
 
 **Judul:** Dampak Fitur Anomali Baru ke Beban Submittor & Verificator

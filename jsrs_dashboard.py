@@ -253,3 +253,25 @@ def fig_tanya_berulang():
     ax.set_ylim(0, 2100)
     fig.tight_layout(); fig.savefig(f"{FIGS}/11_tanya_berulang.png"); plt.close(fig)
     print("  ok: fig_tanya_berulang")
+
+
+def fig_timeline():
+    """Timeline siklus anomali: lama (2 tahap x4.3) vs baru."""
+    fig, ax = plt.subplots(figsize=(9, 4.2))
+    tahap = ["LAMA\n1 putaran", "LAMA\nefektif (x4,3)", "BARU\n(akurat)", "BARU\n(typo)"]
+    lo = [10, 43, 1, 0]; hi = [20, 86, 3, 0]
+    y = np.arange(len(tahap))
+    for i in range(len(tahap)):
+        c = C_OLD if i < 2 else C_NEW
+        ax.barh(y[i], hi[i]-lo[i] if hi[i] > lo[i] else 0.4, left=lo[i], color=c, alpha=0.5)
+        ax.plot([lo[i], hi[i]], [y[i], y[i]], color=c, lw=6, solid_capstyle="round")
+        lbl = f"{lo[i]}-{hi[i]} hari" if hi[i] > 0 else "~0 hari (perbaiki di JSRS)"
+        ax.text(max(hi[i], 1)+1.5, y[i], lbl, va="center", fontsize=11, fontweight="bold",
+                color=c if i != 3 else C_NEW)
+    ax.set_yticks(y); ax.set_yticklabels(tahap, fontsize=9)
+    ax.set_xlabel("hari kerja per anomali (durasi = ASUMSI; 4,3x = DIHITUNG dari data)")
+    ax.set_title("Siklus anomali: dari deteksi sampai status 'OK with Notes'\n"
+                 "alur baru: alasan terisi saat input -> investigasi langsung, tanpa pengulangan")
+    ax.set_xlim(0, 95); ax.invert_yaxis()
+    fig.tight_layout(); fig.savefig(f"{FIGS}/12_timeline.png"); plt.close(fig)
+    print("  ok: fig_timeline")
