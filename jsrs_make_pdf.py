@@ -305,6 +305,32 @@ def build():
         "Catatan: waktu per-entri ASUMSI; pertanyaan berulang 4,3x DIHITUNG dari data.",
     ], size=11, lh=8)
 
+    # 15c rasio beban
+    image_slide(pdf, "Rasio Beban Pemeriksa vs Volume Data", "13_rasio_beban.png",
+                "Rata-rata ~11 entri/Verificator/bulan, tapi Commercial Poultry ~66. Beban terkonsentrasi; baru energi (air/limbah belum dihitung).",
+                "workload - rasio")
+    head(pdf, "Apa yang Berubah dengan Rumus Proper", "rasio -> aksi")
+    bullets(pdf, [
+        "Tanpa deteksi baik: pemeriksa harus menyisir SEMUA entri manual.",
+        "*Dengan rumus baru: fokus hanya ~16,5% entri yang ditandai (1 dari 6), bukan semuanya.",
+        "*Penghemat terbesar: hilangnya pertanyaan berulang (anomali sama ditanya 4,3x) + typo tertangkap dini.",
+        "Beban nyata lebih tinggi dari angka ini karena air/limbah belum dihitung.",
+    ], size=12, lh=9)
+
+    # 15d benchmark industri
+    image_slide(pdf, "Kasus Nyata Perusahaan Lain (riset)", "14_benchmark.png",
+                "Pola konsisten: deteksi dini + otomasi menurunkan kerja manual. Konteks beda, arah manfaat sama. Sumber: uvik, MDPI, Forrester/zigpoll.",
+                "benchmark industri")
+    head(pdf, "Peta Jalan: dari Deteksi ke IoT / Real-time", "arah jangka menengah")
+    bullets(pdf, [
+        "1. Sekarang: deteksi proper (rolling + robust) - vonis saat input, alasan melekat, typo tertangkap.",
+        "2. Integrasi: field alasan di sistem (ganti notepad) + dashboard anomali Corporate.",
+        "3. Semi-otomasi: anomali risiko tinggi wajib dokumen; risiko rendah sampling.",
+        "4. IoT / smart metering: data meter otomatis -> deteksi mendekati real-time (industri lain: menit -> detik).",
+        "5. Prediktif: dari 'mendeteksi penyimpangan' ke 'memperkirakan pemborosan' sebelum terjadi.",
+        "*JSRS tak harus langsung IoT; nilai terbesar jangka pendek ada di langkah 1-2 (murah, cepat).",
+    ], size=11, lh=8)
+
     # 15 langkah demo
     head(pdf, "Langkah Demo ke Stakeholder", "panduan presentasi")
     bullets(pdf, [

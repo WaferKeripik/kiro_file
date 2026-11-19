@@ -275,3 +275,35 @@ def fig_timeline():
     ax.set_xlim(0, 95); ax.invert_yaxis()
     fig.tight_layout(); fig.savefig(f"{FIGS}/12_timeline.png"); plt.close(fig)
     print("  ok: fig_timeline")
+
+
+def fig_rasio_beban():
+    """Rata-rata vs puncak beban entri/Verificator — tunjukkan ketimpangan."""
+    fig, ax = plt.subplots(figsize=(8, 4.2))
+    kat = ["Rata-rata\nsemua divisi", "Commercial\nPoultry", "Aquaculture", "Poultry\nProcessing"]
+    val = [11, 66, 31, 18]
+    cols = ["#9aa0a6", C_OLD, C_BAD, C_OK]
+    bars = ax.bar(kat, val, color=cols)
+    ax.bar_label(bars, fmt="%d", padding=4, fontweight="bold")
+    ax.axhline(11, color="#9aa0a6", ls="--", lw=1)
+    ax.set_ylabel("entri energi / Verificator / bulan")
+    ax.set_title("Beban pemeriksa sangat timpang antar-divisi\n(baru energi; air/limbah belum dihitung -> sebenarnya lebih tinggi)")
+    fig.tight_layout(); fig.savefig(f"{FIGS}/13_rasio_beban.png"); plt.close(fig)
+    print("  ok: fig_rasio_beban")
+
+
+def fig_benchmark():
+    """Benchmark industri (riset) — reduksi kerja manual / deteksi lebih dini."""
+    fig, ax = plt.subplots(figsize=(8.5, 4.2))
+    label = ["Rekonsiliasi meter\nmanual (IoT energi)",
+             "Review manual\n(SMT re-inspect)",
+             "Penanganan tiket\nmanual (Forrester)",
+             "Downtime tak\nterjadwal (gas)"]
+    val = [76, 98, 50, 30]
+    bars = ax.barh(label, val, color=C_NEW)
+    ax.bar_label(bars, fmt="-%d%%", padding=4, fontweight="bold")
+    ax.set_xlabel("penurunan yang dilaporkan (%)")
+    ax.set_title("Benchmark industri: deteksi/otomasi menurunkan kerja manual\n(sumber eksternal; konteks berbeda, arah manfaat konsisten)")
+    ax.set_xlim(0, 110)
+    fig.tight_layout(); fig.savefig(f"{FIGS}/14_benchmark.png"); plt.close(fig)
+    print("  ok: fig_benchmark")
