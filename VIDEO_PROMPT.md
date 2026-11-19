@@ -124,11 +124,11 @@ Angka kunci & asalnya:
 - **Teks:** "Yang sudah dikerjakan" (bukan "rencana").
 
 ### SEG 10 — Risiko, mitigasi & rekomendasi (4:45–5:00)
-- **VO:** "Kami jujur soal risikonya. Karena lebih banyak data ditandai, beban cek bisa bertambah; sebagian dugaan masih perlu divalidasi; dan data air serta limbah belum dihitung. Sebagai rekomendasi untuk tim yang melanjutkan: mulai dari pilot singkat, sediakan tempat alasan di sistem, dan validasi oleh ahli."
+- **VO:** "Kami jujur soal risikonya. Karena lebih banyak data ditandai, beban cek bisa bertambah; sebagian dugaan masih perlu divalidasi; dan data air serta limbah belum dihitung. Sebagai rekomendasi ke depan: mulai dari pilot singkat, sediakan tempat alasan di sistem, dan validasi oleh ahli."
 - **Visual:** dua kolom tenang — kiri "Risiko", kanan "Mitigasi/Rekomendasi" (lihat §4). Nada kalem, tidak defensif.
   Tutup dengan motif band stabil + wordmark kecil **"NEW anomaly detection — Tim Horei"**, fade ke off-white.
-- **Teks:** "Risiko dikenali · Mitigasi · Rekomendasi (untuk tim penerus)".
-- **Catatan:** proyek akan **di-handover**; rekomendasi bersifat saran, **bukan komitmen tanggal**.
+- **Teks:** "Risiko dikenali · Mitigasi · Rekomendasi".
+- **Catatan:** rekomendasi bersifat saran ke depan, **bukan komitmen tanggal**.
 
 ---
 
@@ -144,7 +144,7 @@ Angka kunci & asalnya:
 | 6 | **Production vs Domestic** beda 7–94× | Satu rentang → salah tanda | Pisahkan rentang per jenis pemakaian (temuan, belum diterapkan) |
 | 7 | **Band bisa bernilai minus** pada pola tertentu | Batas bawah tak masuk akal | Aturan band non-negatif (akan dijaga) |
 | 8 | Parameter waktu masih **asumsi** | Estimasi penghematan belum pasti | Time-tracking nyata di 1–2 divisi percontohan |
-| 9 | **Handover** ke tim lain | Pengetahuan bisa hilang | Dokumentasi (repo ini) + sesi serah terima; rekomendasi, bukan tenggat |
+| 9 | **Kesinambungan pengetahuan** antar anggota/tim | Pengetahuan bisa hilang | Dokumentasi lengkap (repo ini); rekomendasi bersifat saran, bukan tenggat |
 | 10 | Sebagian pembanding industri dari **sumber vendor** | Ekspektasi berlebih | Perlakukan `[RISET]` sebagai arah, bukan target; verifikasi mandiri |
 
 ---
@@ -172,4 +172,4 @@ Angka kunci & asalnya:
 > an internal sustainability system — making status stable and known at the moment of data entry. It is a
 > method/solution, **not an AI product**; team name "Horei", working name "NEW anomaly detection".
 > Avoid the word "verdict/vonis", neon colors, busy stock footage, heavy 3D. ~5 minutes, 10 segments per the
-> shot list; end on risks, mitigations, and recommendations for a successor team (no fixed future timeline).
+> shot list; end on risks, mitigations, and forward-looking recommendations (no fixed future timeline).
