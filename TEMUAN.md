@@ -142,6 +142,28 @@ Metode: rasio nilai terhadap **median robust** unit (median tahan outlier, tak t
 angka typo itu sendiri). **Manfaat:** menangkap salah ketik SEBELUM masuk verifikasi
 2-tingkat yang makan 5–10 hari.
 
+#### Cara kerja deteksi typo (langkah)
+
+1. Untuk tiap unit, ambil **median** dari 12 nilai bulanannya (median dipakai karena **tahan
+   outlier** — satu angka typo yang besar tidak menggeser median, jadi typo-nya tetap menonjol).
+2. Hitung **rasio = nilai bulan itu ÷ median unit**.
+3. Tandai sebagai **kandidat typo** bila rasio mendekati kelipatan 10 (pola khas salah nol/pemisah):
+
+| Rasio | Dugaan | Contoh |
+|---|---|---|
+| 8–20× | kelebihan 1 nol (×10) | 2.000 ditulis 20.000 |
+| 80–200× | salah pemisah ribuan/desimal (×100) | 5,62 jadi 562 |
+| 800–2000× | ×1000 | — |
+| 0,05–0,125× | kurang 1 nol (÷10) | 500 ditulis 50 |
+
+> Kenapa bukan rata-rata? Rata-rata ikut membengkak oleh angka typo yang besar, sehingga typo
+> justru tersamar. Median kebal terhadap itu.
+
+**Contoh nyata (lihat `figs/15_typo_contoh.png`): CS Cirebon — Diesel Genset (Production), FY2024.**
+Sebelas bulan stabil di kisaran 470–670 liter, tetapi **Januari = 45.532** sementara median unit
+hanya **562** → rasio **81×** → kandidat typo (dugaan salah pemisah/kelebihan nol). Status: **kandidat**,
+belum divalidasi Division PIC.
+
 ### 6.2 Band terpisah: Production vs Domestic
 
 Pada 277 unit Listrik yang punya kedua jenis pemakaian, median **Production 7–94× lebih besar**

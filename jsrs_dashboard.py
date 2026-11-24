@@ -307,3 +307,52 @@ def fig_benchmark():
     ax.set_xlim(0, 110)
     fig.tight_layout(); fig.savefig(f"{FIGS}/14_benchmark.png"); plt.close(fig)
     print("  ok: fig_benchmark")
+
+
+def fig_typo_contoh():
+    """Visual cara deteksi typo: 1 unit nyata, 12 bulan, median vs nilai typo."""
+    import os as _os
+    from jsrs_loader import load_raw_block
+    def _DD(n):
+        h=_os.path.dirname(_os.path.abspath(__file__))
+        for b in (h,_os.path.join(h,"kiro_file")):
+            p=_os.path.join(b,n)
+            if _os.path.exists(p): return p
+        return n
+    res=load_raw_block(_DD("Non-Renewable Energy FY 2024 (CEK RUMUS)-Training.csv"),2024)
+    long=res.long
+    sub=long[(long["Unit"]=="CS Cirebon") &
+             (long["Energy Sources"]=="Diesel Fuel for Generator Set") &
+             (long["Usage Type"]=="For Production Use")].sort_values("month_idx")
+    import numpy as np
+    vals=sub["consumption"].to_numpy(float); months=sub["month"].tolist()
+    med=np.median(vals[np.isfinite(vals)&(vals>0)])
+    fig,(ax1,ax2)=plt.subplots(1,2,figsize=(11,4.3),gridspec_kw={"width_ratios":[2,1]})
+    # kiri: bar per bulan + garis median
+    x=np.arange(len(vals))
+    colors=[C_BAD if (np.isfinite(v) and v>0 and (v/med>=8)) else C_OK for v in vals]
+    b=ax1.bar(x,vals,color=colors)
+    ax1.axhline(med,color=C_NEW,lw=2,ls="--",label=f"median unit = {med:,.0f}")
+    ax1.set_xticks(x); ax1.set_xticklabels(months,fontsize=8)
+    ax1.set_ylabel("konsumsi diesel (liter)")
+    ax1.set_title("CS Cirebon - Diesel Genset (Production), FY2024\nsatu nilai jauh di atas median unit = kandidat typo")
+    ax1.legend(fontsize=9)
+    # anotasi nilai typo
+    j=int(np.nanargmax(vals))
+    ax1.annotate(f"{vals[j]:,.0f}\n({vals[j]/med:.0f}x median)",
+                 xy=(j,vals[j]),xytext=(j+1.5,vals[j]*0.85),
+                 fontsize=10,fontweight="bold",color=C_BAD,
+                 arrowprops=dict(arrowstyle="->",color=C_BAD))
+    # kanan: penjelasan metode
+    ax2.axis("off")
+    txt=("CARA DETEKSI\n\n"
+         "1. Ambil median 12 bulan\n   (tahan outlier).\n\n"
+         "2. rasio = nilai / median.\n\n"
+         "3. Tandai bila rasio ~ 10x:\n"
+         "   8-20x  -> kelebihan 1 nol\n"
+         "   80-200x -> salah pemisah\n"
+         "   <0,125x -> kurang 1 nol\n\n"
+         f"Kasus ini:\n   {vals[j]:,.0f} / {med:,.0f}\n   = {vals[j]/med:.0f}x -> kandidat typo")
+    ax2.text(0.0,0.98,txt,va="top",ha="left",fontsize=10,family="monospace",color="#212529")
+    fig.tight_layout(); fig.savefig(f"{FIGS}/15_typo_contoh.png"); plt.close(fig)
+    print("  ok: fig_typo_contoh")
